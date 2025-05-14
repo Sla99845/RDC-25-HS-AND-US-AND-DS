@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>RDC 25 - Votação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at center, #1f1c2c, #928DAB);
+      color: #ffffff;
+      font-family: 'Rubik', sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      font-size: 3em;
+      color: #FFDE59;
+      text-shadow: 2px 2px 6px #000;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 30px;
+    }
+    .logo {
+      max-width: 100%;
+      width: 500px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
+    }
+    .votacao {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      width: 300px;
+    }
+    .votacao h2 {
+      color: #00FFD5;
+      margin-bottom: 20px;
+    }
+    .votacao label {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #ffffff;
+    }
+    .votacao input[type="radio"] {
+      margin-right: 10px;
+    }
+    .votacao button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background-color: #FFDE59;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+    .votacao button:hover {
+      background-color: #e6c200;
+    }
+    .placa {
+      background-color: rgba(0,0,0,0.7);
+      border: 3px solid #FFDE59;
+      padding: 20px;
+      border-radius: 15px;
+      color: #ffffff;
+      width: 300px;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
+    }
+    .placa h3 {
+      margin-bottom: 10px;
+      color: #00FFAA;
+    }
+    .placa p {
+      margin: 5px 0;
+    }
+    @media (max-width: 850px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .logo, .votacao, .placa {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>RDC 25 - Vote no seu favorito!</h1>
+
+  <div class="container">
+    <img src="RDC.png" alt="Logo RDC 25" class="logo">
+
+    <div class="votacao">
+      <h2>Escolha seu estúdio favorito:</h2>
+      <form id="formVoto">
+        <label><input type="radio" name="studio" value="House Studio"> House Studio</label>
+        <label><input type="radio" name="studio" value="Universe Studios"> Universe Studios</label>
+        <label><input type="radio" name="studio" value="DominoStudioVR"> DominoStudioVR</label>
+        <button type="submit">Votar</button>
+      </form>
+      <p id="mensagemVoto" style="margin-top: 15px; color: #00ff88;"></p>
+    </div>
+
+    <div class="placa">
+      <h3>Votos totais:</h3>
+      <p id="contador">0 pessoas votaram</p>
+      <p>House Studio: <span id="houseCount">0</span></p>
+      <p>Universe Studios: <span id="universeCount">0</span></p>
+      <p>DominoStudioVR: <span id="dominoCount">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    let totalVotos = 0;
+    let votos = {
+      "House Studio": 0,
+      "Universe Studios": 0,
+      "DominoStudioVR": 0
+    };
+
+    document.getElementById("formVoto").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const escolhido = document.querySelector('input[name="studio"]:checked');
+      const mensagem = document.getElementById("mensagemVoto");
+      if (escolhido) {
+        const valor = escolhido.value;
+        votos[valor]++;
+        totalVotos++;
+        mensagem.textContent = "Voto registrado para " + valor + "!";
+        document.getElementById("contador").textContent = totalVotos + " pessoas votaram";
+        document.getElementById("houseCount").textContent = votos["House Studio"];
+        document.getElementById("universeCount").textContent = votos["Universe Studios"];
+        document.getElementById("dominoCount").textContent = votos["DominoStudioVR"];
+      } else {
+        mensagem.textContent = "Por favor, selecione um estúdio.";
+      }
+    });
+  </script>
+</body>
+</html>
